@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7ACA7D"
+    tools:context=".EntryActivity">
+
+    <Button
+        android:id="@+id/buttonIniciaSesionEntry"
+        android:layout_width="286dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#0B5E68"
+        android:text="@string/texto_boton_iniciar_sesion"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.815" />
+
+    <Button
+        android:id="@+id/buttonRegistroActivityInicio"
+        android:layout_width="286dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#0B5E68"
+        android:text="@string/texto_boton_registro"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.912" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="308dp"
+        android:layout_height="322dp"
+        android:background="#7ACA7D"
+        android:contentDescription="@string/texto_imagen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.542"
+        app:srcCompat="@drawable/hola" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="298dp"
+        android:layout_height="168dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:focusable="false"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:longClickable="false"
+        android:text="@string/texto_bienvenida"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.095"
+        tools:text="@string/texto_bienvenida" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

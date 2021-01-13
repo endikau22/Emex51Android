@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Reto2</string>
+    <string name="texto_boton_iniciar_sesion">Inicia sesión</string>
+    <string name="texto_boton_registro">Regístrate ahora</string>
+    <string name="texto_bienvenida">Vive una experiencia irrepetible</string>
+    <string name="texto_contrasenia_olvidada">¿Has olvidado la contraseña?</string>
+    <string name="texto_switch_recuerdo">Recuerdame</string>
+    <string name="texto_email">Correo electrónico</string>
+    <string name="texto_contrasenia">Contraseña</string>
+    <string name="texto_cabecera_registro">Regístrate</string>
+    <string name="texto_nombre">Nombre</string>
+    <string name="texto_dni">DNI</string>
+    <string name="texto_login">Login</string>
+    <string name="texto_boton_enviar">Enviar</string>
+    <string name="texto_informativo_email_olvidado">Introduce aquí tu dirección de correo electrónico y te enviaremos un e-mail para que puedas cambiarla</string>
+    <string name="texto_aceptar_terminos">Acepto los Términos y condiciones y la política de privacidad de Emex51</string>
+    <string name="texto_imagen">Canyion</string>
+</resources>
