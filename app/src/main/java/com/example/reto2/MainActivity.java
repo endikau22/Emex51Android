@@ -11,18 +11,23 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.airbnb.lottie.LottieAnimationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private LottieAnimationView imagenLottie = null;
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         imagenLottie = (LottieAnimationView) findViewById(R.id.imageViewLottie);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
 
         Animation animacionBoton = AnimationUtils.loadAnimation(this,R.anim.animacion);
         imagenLottie.setVisibility(View.VISIBLE);

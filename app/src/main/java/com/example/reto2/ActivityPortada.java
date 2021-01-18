@@ -30,6 +30,7 @@ public class ActivityPortada extends AppCompatActivity {
                 Intent intent = new Intent(ActivityPortada.this, ActivityInicioSesionRegistro.class);
                 intent.putExtra("Entry","FromActivityInicio");
                 startActivity(intent);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
             }
         });
         botonRegistro.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +39,7 @@ public class ActivityPortada extends AppCompatActivity {
                 Intent intent = new Intent(ActivityPortada.this, ActivityInicioSesionRegistro.class);
                 intent.putExtra("Entry","FromActivityRegistro");
                 startActivity(intent);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
             }
         });
     }

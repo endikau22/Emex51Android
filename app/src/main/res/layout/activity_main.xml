@@ -8,17 +8,31 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/imageViewLottie"
-        android:layout_width="184dp"
-        android:layout_height="175dp"
+        android:layout_width="146dp"
+        android:layout_height="213dp"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.267"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.194"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/rocketspace"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="214dp"
+        android:layout_height="54dp"
+        android:indeterminate="true"
+        android:colorPrimary="#0CB7F2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.388"
-        app:lottie_loop="false"
-        app:lottie_rawRes="@raw/rocketspace"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.824" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
