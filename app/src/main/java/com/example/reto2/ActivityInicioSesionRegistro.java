@@ -6,14 +6,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class InicioActivity extends AppCompatActivity {
+public class ActivityInicioSesionRegistro extends AppCompatActivity {
 
     private LinearLayout layoutBotonesCabecera = null;
     private ConstraintLayout layoutInicioSesion = null;
@@ -28,7 +27,7 @@ public class InicioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicio);
+        setContentView(R.layout.activity_iniciosesionregistro);
 
         layoutBotonesCabecera = findViewById(R.id.layoutBotones);
         layoutInicioSesion = findViewById(R.id.layoutInicioSesion);
@@ -39,7 +38,7 @@ public class InicioActivity extends AppCompatActivity {
         botonRegistro = findViewById(R.id.buttonRegistro);
         textoRecuperarPassword = findViewById(R.id.textViewPasswordOlvidada);
         bd = openOrCreateDatabase("emex51db", Context.MODE_PRIVATE,null);
-        bd.execSQL("CREATE TABLE IF NOT EXISTS visitor (email VARCHAR,password VARCHAR);");
+        bd.execSQL("CREATE TABLE IF NOT EXISTS visitor (email VARCHAR,password VARCHAR,musica INTEGER);");
 
         Intent intent = this.getIntent();
         if (intent != null){
@@ -81,7 +80,7 @@ public class InicioActivity extends AppCompatActivity {
         textoRecuperarPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InicioActivity.this,RecuperarActivity.class);
+                Intent intent = new Intent(ActivityInicioSesionRegistro.this,RecuperarActivity.class);
                 startActivity(intent);
             }
         });

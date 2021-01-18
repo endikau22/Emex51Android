@@ -15,4 +15,16 @@
     <string name="texto_informativo_email_olvidado">Introduce aquí tu dirección de correo electrónico y te enviaremos un e-mail para que puedas cambiarla</string>
     <string name="texto_aceptar_terminos">Acepto los Términos y condiciones y la política de privacidad de Emex51</string>
     <string name="texto_imagen">Canyion</string>
+    <string name="texto_boton_main">Entrar</string>
+    <string name="title_activity_menu_principal">ActivityMenuPrincipal</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 </resources>

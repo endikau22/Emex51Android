@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class EntryActivity extends AppCompatActivity {
+import musica.AudioPlay;
+
+public class ActivityPortada extends AppCompatActivity {
 
     private Button botonIniciaSesion = null;
     private Button botonRegistro = null;
@@ -15,15 +17,17 @@ public class EntryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_entry);
+        setContentView(R.layout.activity_portada);
 
         botonIniciaSesion = (Button) findViewById(R.id.buttonIniciaSesionEntry);
         botonRegistro = (Button) findViewById(R.id.buttonRegistroActivityInicio);
 
+        AudioPlay.playAudio(this);
+
         botonIniciaSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EntryActivity.this,InicioActivity.class);
+                Intent intent = new Intent(ActivityPortada.this, ActivityInicioSesionRegistro.class);
                 intent.putExtra("Entry","FromActivityInicio");
                 startActivity(intent);
             }
@@ -31,7 +35,7 @@ public class EntryActivity extends AppCompatActivity {
         botonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EntryActivity.this,InicioActivity.class);
+                Intent intent = new Intent(ActivityPortada.this, ActivityInicioSesionRegistro.class);
                 intent.putExtra("Entry","FromActivityRegistro");
                 startActivity(intent);
             }

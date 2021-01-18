@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.reto2">
 
+    <uses-permission android:name="android.permision.INTERNET" />
+    <uses-permission android:name="android.permision.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,9 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".RecuperarActivity"></activity>
-        <activity android:name=".InicioActivity" />
-        <activity android:name=".EntryActivity">
+        <activity
+            android:name=".ActivityMenuPrincipal"
+            android:label="@string/title_activity_menu_principal"
+            android:theme="@style/NoActionBar"></activity>
+        <activity android:name=".ActivityPortada" />
+        <activity android:name=".RecuperarActivity" />
+        <activity android:name=".ActivityInicioSesionRegistro" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
