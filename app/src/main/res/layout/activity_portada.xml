@@ -49,8 +49,8 @@
 
     <EditText
         android:id="@+id/editTextTextMultiLine"
-        android:layout_width="298dp"
-        android:layout_height="168dp"
+        android:layout_width="186dp"
+        android:layout_height="131dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:focusable="false"
@@ -61,10 +61,23 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.226"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095"
+        app:layout_constraintVertical_bias="0.151"
         tools:text="@string/texto_bienvenida" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/imageViewLottieAlien"
+        android:layout_width="175dp"
+        android:layout_height="172dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.105"
+        app:lottie_rawRes="@raw/alien"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

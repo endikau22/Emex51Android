@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import musica.AudioPlay;
 
 public class ActivityPortada extends AppCompatActivity {
 
     private Button botonIniciaSesion = null;
     private Button botonRegistro = null;
+    private LottieAnimationView alien;
+    private boolean moviendo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,7 @@ public class ActivityPortada extends AppCompatActivity {
 
         botonIniciaSesion = (Button) findViewById(R.id.buttonIniciaSesionEntry);
         botonRegistro = (Button) findViewById(R.id.buttonRegistroActivityInicio);
+        alien=findViewById(R.id.imageViewLottieAlien);
 
         AudioPlay.playAudio(this);
 
@@ -40,6 +45,19 @@ public class ActivityPortada extends AppCompatActivity {
                 intent.putExtra("Entry","FromActivityRegistro");
                 startActivity(intent);
                 overridePendingTransition(R.anim.left_in, R.anim.left_out);
+            }
+        });
+
+        alien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!moviendo){
+                    alien.playAnimation();
+                    moviendo = true;
+                } else{
+                    alien.pauseAnimation();
+                    moviendo = false;
+                }
             }
         });
     }
