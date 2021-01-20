@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#7ACA7D"
-    tools:context=".EntryActivity">
+    tools:context=".ActivityPortada">
 
     <Button
         android:id="@+id/buttonIniciaSesionEntry"
@@ -34,7 +34,7 @@
         app:layout_constraintVertical_bias="0.912" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewFoto"
         android:layout_width="308dp"
         android:layout_height="322dp"
         android:background="#7ACA7D"
