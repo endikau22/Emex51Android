@@ -8,12 +8,7 @@ package model;
  * @author Xabier Carnero, Endika Ubierna, Markel Lopez de Uralde.
  */
 public enum UserPrivilege{
-    /**
-     * The user is a regular user.
-     */
-    USER,
-    /**
-     * The user is a privileged user.
-     */
-    ADMIN
+    BOSS,
+    EMPLOYEE,
+    VISITOR
 }

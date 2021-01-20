@@ -25,7 +25,7 @@ public interface UserInterface {
     @GET("all")
     public Call<List<User>> findAll();
     @GET("login/{login}")
-    public Call<List<User>> findUsersByLogin(@Path("login") String login);
+    public Call<User> findUsersByLogin(@Path("login") String login);
     @PUT("forgotPassword")
     public void editForgotPassword(@Body User user);
     @PUT("changePassword/{oldPass}/{newPass}")

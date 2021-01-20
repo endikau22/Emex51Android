@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class VisitorRestClient {
-    private static String BASE_URL = "http://localhost:8080/EMEX51Server/webresources/visitor/";
+    private static String BASE_URL = "http://192.168.1.36:8080/EMEX51Server/webresources/visitor/";
 
     public static VisitorInterface getVisitor (){
 

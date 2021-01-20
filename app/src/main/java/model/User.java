@@ -37,7 +37,7 @@ public class User implements Serializable {
     /**
      * {@link UserPrivilege} of the user.
      */
-    private UserPrivilege privilege = UserPrivilege.USER;
+    private UserPrivilege privilege;
     /**
      * Password of the user.
      */
@@ -81,7 +81,6 @@ public class User implements Serializable {
         this.fullName = fullName;
         this.password = password;
         status = UserStatus.ENABLED;
-        privilege = UserPrivilege.USER;
     }
 
     /**

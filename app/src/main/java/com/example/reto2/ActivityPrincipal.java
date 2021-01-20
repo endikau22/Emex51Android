@@ -23,9 +23,9 @@ public class ActivityPrincipal extends AppCompatActivity implements Callback<Use
         setContentView(R.layout.activity_principal);
 
         UserInterface userInterface = UserRestClient.getUser();
-        Call <User> user = userInterface.find("1");
+        Call <User> callLogIn = userInterface.find("1");
         //Call <Users> usersList = userInterface.findAllEmployees();
-        user.enqueue((Callback<User>) this);
+        callLogIn.enqueue((Callback<User>) this);
     }
 
     @Override
