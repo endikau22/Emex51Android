@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import musica.AudioPlay;
 
@@ -13,6 +17,7 @@ public class ActivityPortada extends AppCompatActivity {
 
     private Button botonIniciaSesion = null;
     private Button botonRegistro = null;
+    private ImageView imagen = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,15 @@ public class ActivityPortada extends AppCompatActivity {
 
         botonIniciaSesion = (Button) findViewById(R.id.buttonIniciaSesionEntry);
         botonRegistro = (Button) findViewById(R.id.buttonRegistroActivityInicio);
+        imagen = findViewById(R.id.imageViewFoto);
+
+        imagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation animVolador = AnimationUtils.loadAnimation(ActivityPortada.this,R.anim.animacion);
+                imagen.startAnimation(animVolador);
+            }
+        });
 
         AudioPlay.playAudio(this);
 

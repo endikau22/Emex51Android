@@ -41,7 +41,7 @@
         android:visibility="gone">
 
         <EditText
-            android:id="@+id/editTextMail"
+            android:id="@+id/editTextLoginInicioSesion"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
@@ -60,7 +60,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/texto_email"
+            android:text="@string/texto_login"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +92,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/editTextTextPasswordInicioSesion"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
@@ -144,7 +144,7 @@
         tools:layout_editor_absoluteX="0dp">
 
         <EditText
-            android:id="@+id/editTextName"
+            android:id="@+id/editTextNameRagistro"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
@@ -160,7 +160,7 @@
             app:layout_constraintVertical_bias="0.186" />
 
         <EditText
-            android:id="@+id/editTextDni"
+            android:id="@+id/editTextDniRegistro"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
@@ -176,7 +176,7 @@
             app:layout_constraintVertical_bias="0.334" />
 
         <EditText
-            android:id="@+id/editTextCorreoElectronico"
+            android:id="@+id/editTextCorreoElectronicoRegistro"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
@@ -192,7 +192,7 @@
             app:layout_constraintVertical_bias="0.457" />
 
         <EditText
-            android:id="@+id/editTextPassword"
+            android:id="@+id/editTextPasswordRegistro"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
@@ -297,7 +297,7 @@
             app:layout_constraintVertical_bias="0.542" />
 
         <EditText
-            android:id="@+id/editTextLogin"
+            android:id="@+id/editTextLoginRegistro"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"

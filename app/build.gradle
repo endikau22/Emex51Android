@@ -40,6 +40,8 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.6.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation'com.squareup.okhttp3:logging-interceptor:3.14.0'
     implementation'com.squareup.retrofit2:retrofit:2.7.2'
     implementation'com.squareup.retrofit2:converter-simplexml:2.7.2'
 }

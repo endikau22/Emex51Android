@@ -9,7 +9,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class ActivityInicioSesionRegistro extends AppCompatActivity {
@@ -23,6 +26,15 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
     private Button botonRegistro = null;
     private TextView textoRecuperarPassword = null;
     private SQLiteDatabase bd = null;
+    private EditText textoLoginInicioSesion = null;
+    private EditText textoPasswordInicioSesion = null;
+    private EditText textoNombreRegistro = null;
+    private EditText textoDNIRegistro = null;
+    private EditText textoEmailRegistro = null;
+    private EditText textoLoginRegistro = null;
+    private EditText textoPasswordRegistro = null;
+    private Switch recuerdame = null;
+    private CheckBox aceptarCondicionesRegistro = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
