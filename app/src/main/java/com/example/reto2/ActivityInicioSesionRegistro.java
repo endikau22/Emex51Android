@@ -135,7 +135,15 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
         botonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(textoDNIRegistro.getText().toString().equals("")||textoEmailRegistro.getText().toString().equals("")||
+                        textoLoginRegistro.getText().toString().equals("")||textoNombreRegistro.getText().toString().equals("")||
+                            textoPasswordRegistro.getText().toString().equals(""))
+                    Toast.makeText(getApplicationContext(),"Rellena todos los campos.",Toast.LENGTH_SHORT);
+                else if(!aceptarCondicionesRegistro.isChecked())
+                    Toast.makeText(getApplicationContext(),"El campo password debe estar informado.",Toast.LENGTH_SHORT);
+                else{
+                    //Crear visitante
+                }
             }
         });
         textoRecuperarPassword.setOnClickListener(new View.OnClickListener() {
