@@ -17,9 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import intefaces.UserInterface;
+import intefaces.VisitorInterface;
 import model.User;
 import model.UserPrivilege;
+import model.Visitor;
 import retrofit.UserRestClient;
+import retrofit.VisitorRestClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +62,14 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
         botonRegistro = findViewById(R.id.buttonRegistro);
         textoRecuperarPassword = findViewById(R.id.textViewPasswordOlvidada);
         recuerdame = findViewById(R.id.switchRecuerdo);
+        textoLoginInicioSesion = findViewById(R.id.editTextLoginInicioSesion);
+        textoPasswordInicioSesion = findViewById(R.id.editTextTextPasswordInicioSesion);
+        textoDNIRegistro = findViewById(R.id.editTextDniRegistro);
+        textoNombreRegistro = findViewById(R.id.editTextNameRagistro);
+        textoEmailRegistro = findViewById(R.id.editTextCorreoElectronicoRegistro);
+        textoLoginRegistro = findViewById(R.id.editTextLoginRegistro);
+        textoPasswordRegistro = findViewById(R.id.editTextPasswordRegistro);
+        aceptarCondicionesRegistro = findViewById(R.id.checkBoxCondiciones);
 
         bd = openOrCreateDatabase("emex51db", Context.MODE_PRIVATE,null);
         bd.execSQL("CREATE TABLE IF NOT EXISTS visitor (login VARCHAR,password VARCHAR,musica BOOLEAN,recordar BOOLEAN);");
@@ -93,21 +104,25 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(textoLoginInicioSesion.getText().toString().equals(""))
-                    Toast.makeText(getApplicationContext(),"El campo login debe estar informado.",Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(),"El campo login debe estar informado.",Toast.LENGTH_SHORT).show();
                 else if(textoPasswordInicioSesion.getText().toString().equals(""))
-                    Toast.makeText(getApplicationContext(),"El campo password debe estar informado.",Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(),"El campo password debe estar informado.",Toast.LENGTH_SHORT).show();
                 else{
                     //Login y password los textField están informados llamar a retrofit para consultar con la bbdd
                     UserInterface userInterface = UserRestClient.getUser();
+                    //NO SE COMO HACER SI NO DEVUELVE NADA
+                   /* userInterface.loginUser(textoLoginInicioSesion.getText().toString().trim(),
+                            textoPasswordInicioSesion.getText().toString().trim());*/
                     Call<User> call = userInterface.findUsersByLogin(textoLoginInicioSesion.getText().toString().trim());
                     call.enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
-                            //El servidor devuelve entre un 200 y un 300. Todo OK. En este caso ! not. Devuelve un error 400 500 o lo que sea
+                            //El servidor devuelve entre un 200 y un 300
+                            //Todo ok. En este  not. Devuelve un error 400 500 o lo que sea
                             if(!response.isSuccessful()){
                                 textoLoginInicioSesion.setText("");
                                 textoPasswordInicioSesion.setText("");
-                                Toast.makeText(getApplicationContext(),"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT);
+                                Toast.makeText(getApplicationContext(),"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             //Si no hace return sigue por aqui el servidor ha devuelto un 200 Ok.
@@ -118,6 +133,7 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                                 //Guardar en la sqlite el login y password y si tiene el switch recuerdame poner a true para la siguiente vez.
                                 Intent intent = new Intent(ActivityInicioSesionRegistro.this,ActivityPrincipal.class);
                                 startActivity(intent);
+
                             }
                         }
 
@@ -125,7 +141,7 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                         public void onFailure(Call<User> call, Throwable t) {
                             textoLoginInicioSesion.setText("");
                             textoPasswordInicioSesion.setText("");
-                            Toast.makeText(getApplicationContext(),"Se ha producido un error",Toast.LENGTH_SHORT);
+                            Toast.makeText(getApplicationContext(),"Se ha producido un error"+t.getMessage(),Toast.LENGTH_SHORT).show();
                             return;
                         }
                     });
@@ -138,11 +154,20 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                 if(textoDNIRegistro.getText().toString().equals("")||textoEmailRegistro.getText().toString().equals("")||
                         textoLoginRegistro.getText().toString().equals("")||textoNombreRegistro.getText().toString().equals("")||
                             textoPasswordRegistro.getText().toString().equals(""))
-                    Toast.makeText(getApplicationContext(),"Rellena todos los campos.",Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(),"Rellena todos los campos.",Toast.LENGTH_SHORT).show();
                 else if(!aceptarCondicionesRegistro.isChecked())
-                    Toast.makeText(getApplicationContext(),"El campo password debe estar informado.",Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(),"Acepta las condiciones antes de registrarte.",Toast.LENGTH_SHORT).show();
                 else{
                     //Crear visitante
+                    Visitor visitor = new Visitor();
+                    visitor.setDni(textoDNIRegistro.getText().toString().trim());
+                    visitor.setEmail(textoEmailRegistro.getText().toString().trim());
+                    visitor.setFullName(textoNombreRegistro.getText().toString().trim());
+                    visitor.setPassword(textoPasswordRegistro.getText().toString().trim());
+                    visitor.setLogin(textoLoginRegistro.getText().toString().trim());
+                    VisitorInterface visitorInterface = VisitorRestClient.getVisitor();
+                    visitorInterface.create(visitor);
+
                 }
             }
         });

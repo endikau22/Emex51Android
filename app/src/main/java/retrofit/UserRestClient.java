@@ -13,12 +13,12 @@ public class UserRestClient {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient httpClient = new OkHttpClient.Builder().build();
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
 
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl(BASE_URL)
-                .addConverterFactory(SimpleXmlConverterFactory.create());
-        Retrofit retrofit = builder.client(httpClient).build();
-        UserInterface userInterface = retrofit.create(UserInterface.class);
+        Retrofit builder = new Retrofit.Builder().baseUrl(BASE_URL)
+                .addConverterFactory(SimpleXmlConverterFactory.create()).client(httpClient.build()).build();
+        UserInterface userInterface = builder.create(UserInterface.class);
         return userInterface;
     }
 }
