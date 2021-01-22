@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(MainActivity.this,ActivityPortada.class);
                 startActivity(intent);
+                finish();
             }
         }, 4100);
 

@@ -3,9 +3,11 @@ package com.example.reto2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -17,6 +19,9 @@ public class ActivityPortada extends AppCompatActivity {
     private Button botonRegistro = null;
     private LottieAnimationView alien;
     private boolean moviendo;
+    private MediaPlayer mediaPlayer;
+    private boolean reproduciendo = true;
+    private ImageView imagenMusica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,8 @@ public class ActivityPortada extends AppCompatActivity {
         botonIniciaSesion = (Button) findViewById(R.id.buttonIniciaSesionEntry);
         botonRegistro = (Button) findViewById(R.id.buttonRegistroActivityInicio);
         alien=findViewById(R.id.imageViewLottieAlien);
+        mediaPlayer = new MediaPlayer();
+        imagenMusica = findViewById(R.id.imagenMusica);
 
         AudioPlay.playAudio(this);
 
