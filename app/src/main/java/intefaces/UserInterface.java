@@ -3,7 +3,6 @@ package intefaces;
 import java.util.List;
 
 import model.User;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -13,7 +12,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface UserInterface {
-
     @POST
     public void create(@Body User user);
     @PUT
@@ -31,5 +29,5 @@ public interface UserInterface {
     @PUT("changePassword/{oldPass}/{newPass}")
     public void editChangePassword(@Path("oldPass") String oldPass,@Path("newPass") String newPass,@Body User user);
     @GET("loginUser/{login}/{password}")
-    public void loginUser(@Path("login") String login, @Path("password") String password);
+    public Call<User> loginUser(@Path("login") String login, @Path("password") String password);
 }

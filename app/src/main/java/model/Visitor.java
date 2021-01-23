@@ -1,6 +1,10 @@
 package model;
 
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -14,6 +18,7 @@ import java.util.Set;
  * @version 1.0
  * @author Xabier Carnero, Endika Ubierna, Markel Lopez de Uralde.
  */
+@Root(name = "visitor")
 public class Visitor extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,36 +26,47 @@ public class Visitor extends User implements Serializable {
     /**
      * The DNI of the visitor.
      */
+    @Element(name="dni")
     private String dni;
     /**
      * The request date of the visitReply.
      */
+    @Element(name="requestedVisitDate", required = false)
     private Date requestedVisitDate;
     /**
      * The response. True or false.
      */
+    @Element(name="visitReply")
     private Boolean visitReply;
     /**
      * Visited value. True or false.
      */
+    @Element(name="visited")
     private Boolean visited;
     /**
      * The date of the visitors visitReply.
      */
+    @Element(name="visitDate", required = false)
     private Date visitDate;
     /**
      * The {@link Employee} who manage the visitors visitReply.
      */
+    @Element(name="employee", required = false)
     private Employee employee;
     /**
      * The Set of {@link Sector} visited by the visitor.
      */
+    @ElementList(name="visitedSectors", inline=true, required = false)
     private Set<Sector> visitedSectors;
 
     /**
      * Class constructor.
      */
     public Visitor() {
+        super.setStatus(UserStatus.ENABLED);
+        super.setPrivilege(UserPrivilege.VISITOR);
+        this.visitReply = false;
+        this.visited = false;
     }
 
     /**

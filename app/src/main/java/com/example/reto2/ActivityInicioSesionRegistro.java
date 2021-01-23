@@ -110,10 +110,8 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                 else{
                     //Login y password los textField están informados llamar a retrofit para consultar con la bbdd
                     UserInterface userInterface = UserRestClient.getUser();
-                    //NO SE COMO HACER SI NO DEVUELVE NADA
-                   /* userInterface.loginUser(textoLoginInicioSesion.getText().toString().trim(),
-                            textoPasswordInicioSesion.getText().toString().trim());*/
-                    Call<User> call = userInterface.findUsersByLogin(textoLoginInicioSesion.getText().toString().trim());
+                    Call<User> call = userInterface.loginUser(textoLoginInicioSesion.getText().toString().trim(),
+                            textoPasswordInicioSesion.getText().toString().trim());
                     call.enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
@@ -122,27 +120,24 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                             if(!response.isSuccessful()){
                                 textoLoginInicioSesion.setText("");
                                 textoPasswordInicioSesion.setText("");
-                                Toast.makeText(getApplicationContext(),"Usuario o contraseña incorrecta",Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            //Si no hace return sigue por aqui el servidor ha devuelto un 200 Ok.
-                            User userResponse = response.body();
-                            if(userResponse.getPassword().equalsIgnoreCase(textoPasswordInicioSesion.getText().toString())
-                                    && userResponse.getPrivilege() == UserPrivilege.VISITOR){
-                                //Me ha devuelto un usuario, he comparado las contraseñas y ademas es visitor.
-                                //Guardar en la sqlite el login y password y si tiene el switch recuerdame poner a true para la siguiente vez.
-                                Intent intent = new Intent(ActivityInicioSesionRegistro.this,ActivityPrincipal.class);
-                                startActivity(intent);
-
+                                Toast.makeText(getApplicationContext(),"Usuario o contraseña incorrecta",Toast.LENGTH_LONG).show();
+                            }else{
+                                //Si no hace return sigue por aqui el servidor ha devuelto un 200 Ok.
+                                User userResponse = response.body();
+                                if(userResponse.getPrivilege() == UserPrivilege.VISITOR){
+                                    //Me ha devuelto un usuario, he comparado las contraseñas y ademas es visitor.
+                                    //Guardar en la sqlite el login y password y si tiene el switch recuerdame poner a true para la siguiente vez.
+                                    Intent intent = new Intent(ActivityInicioSesionRegistro.this,ActivityPrincipal.class);
+                                    startActivity(intent);
+                                }else
+                                    Toast.makeText(getApplicationContext(),"App solo para visitantes",Toast.LENGTH_LONG).show();
                             }
                         }
-
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
                             textoLoginInicioSesion.setText("");
                             textoPasswordInicioSesion.setText("");
                             Toast.makeText(getApplicationContext(),"Se ha producido un error"+t.getMessage(),Toast.LENGTH_SHORT).show();
-                            return;
                         }
                     });
                 }
@@ -166,8 +161,30 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                     visitor.setPassword(textoPasswordRegistro.getText().toString().trim());
                     visitor.setLogin(textoLoginRegistro.getText().toString().trim());
                     VisitorInterface visitorInterface = VisitorRestClient.getVisitor();
-                    visitorInterface.create(visitor);
+                    Call<Void> call = visitorInterface.create(visitor);
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if(response.isSuccessful()){
+                                Toast.makeText(getApplicationContext(),"Usuario registrado",Toast.LENGTH_SHORT).show();
+                                layoutRegistro.setVisibility(View.GONE);
+                                layoutInicioSesion.setVisibility(View.VISIBLE);
+                            }else{
+                                Toast.makeText(getApplicationContext(),"Registro incorrecto",Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            textoLoginRegistro.setText("");
+                            textoPasswordRegistro.setText("");
+                            textoDNIRegistro.setText("");
+                            textoEmailRegistro.setText("");
+                            textoNombreRegistro.setText("");
+                            aceptarCondicionesRegistro.setChecked(false);
+                            Toast.makeText(getApplicationContext(),"Registro denegado. Se ha producido un error"+t.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             }
         });
