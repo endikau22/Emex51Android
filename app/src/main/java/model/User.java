@@ -1,6 +1,9 @@
 package model;
 
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,44 +14,54 @@ import java.util.Date;
  * @version 1.0
  * @author Endika Ubierna, Markel Lopez de Uralde, Xabier Carnero.
  */
+@Root(name = "user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     /**
      * Id field of the Criature Entity. It is also the id value of the criature.
      */
+    @Element(name ="id", required=false)
     private Integer id;
     /**
      * The login value for the user.
      */
+    @Element(name ="login")
     private String login;
     /**
      * The email of the user.
      */
+    @Element(name ="email")
     private String email;
     /**
      * The name of the user.
      */
+    @Element(name ="fullName")
     private String fullName;
     /**
      * {@link UserStatus} of the user.
      */
+    @Element(name ="status")
     private UserStatus status = UserStatus.ENABLED;
     /**
      * {@link UserPrivilege} of the user.
      */
-    private UserPrivilege privilege = UserPrivilege.USER;
+    @Element(name ="privilege")
+    private UserPrivilege privilege;
     /**
      * Password of the user.
      */
+    @Element(name ="password")
     private String password;
     /**
      * Last access date of the user
      */
+    @Element(name ="lastAccess", required = false)
     private Date lastAccess;
     /**
      * Last password change date of the user.
      */
+    @Element(name ="lastPasswordChange", required = false)
     private Date lastPasswordChange;
 
     /**
@@ -81,7 +94,6 @@ public class User implements Serializable {
         this.fullName = fullName;
         this.password = password;
         status = UserStatus.ENABLED;
-        privilege = UserPrivilege.USER;
     }
 
     /**
@@ -155,6 +167,7 @@ public class User implements Serializable {
     public UserPrivilege getPrivilege() {
         return privilege;
     }
+    public void setPrivilege(UserPrivilege privilege){this.privilege = privilege; }
 
     /**
      * Gets the id of the user.

@@ -1,5 +1,9 @@
 package model;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+
 import java.io.Serializable;
 import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.Set;
@@ -14,6 +18,7 @@ import java.util.Set;
  * @version 1.0
  * @since 01/12/2020
  */
+@Root(name = "sector")
 public class Sector implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,26 +26,32 @@ public class Sector implements Serializable {
     /**
      * Id field of the Sector Entity. It is also the id value of the sector.
      */
+    @Element(name = "id",required = false)
     private Integer id;
     /**
      * Name field of the Sector Entity.
      */
+    @Element(name = "name")
     private String name;
     /**
      * List of {@link Visitor} belonging to the sector.
      */
+    @ElementList(name = "visitors", inline = true, required = false)
     private Set<Visitor> visitors;
     /**
      * List of {@link EmployeeSectorManagement} belonging to the Sector.
      */
+    @ElementList(name = "employeesectorsmanaged", inline=true,required = false)
     private Set<EmployeeSectorManagement> employees;
     /**
      * List of {@link Creature} or {@link Army} belonging to the Sector.
      */
+    @ElementList(name="sectorcontent", inline=true, required = false)
     private Set<SectorContent> sectorContent;
     /**
      * {@link Type} of the sector.
      */
+    @Element(name ="type")
     private SectorType type;
 
     /**

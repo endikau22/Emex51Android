@@ -10,8 +10,8 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface VisitorInterface {
-    @POST
-    public void create(@Body Visitor visitor);
+    @POST(".")
+    public Call<Void> create(@Body Visitor visitor);
     @PUT
     public void edit(@Body Visitor visitor);
     @DELETE("{id}")

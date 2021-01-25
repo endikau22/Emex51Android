@@ -208,7 +208,7 @@
             app:layout_constraintVertical_bias="0.737" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkBoxCondiciones"
             android:layout_width="367dp"
             android:layout_height="39dp"
             android:text="@string/texto_aceptar_terminos"
