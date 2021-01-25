@@ -16,6 +16,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyFactory;
+import java.security.PublicKey;
+import java.security.spec.X509EncodedKeySpec;
+
+import javax.crypto.Cipher;
+
 import intefaces.UserInterface;
 import intefaces.VisitorInterface;
 import model.User;
@@ -158,6 +167,7 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                     visitor.setDni(textoDNIRegistro.getText().toString().trim());
                     visitor.setEmail(textoEmailRegistro.getText().toString().trim());
                     visitor.setFullName(textoNombreRegistro.getText().toString().trim());
+                    //visitor.setPassword(cifradoPassword(textoPasswordRegistro.getText().toString().trim()));
                     visitor.setPassword(textoPasswordRegistro.getText().toString().trim());
                     visitor.setLogin(textoLoginRegistro.getText().toString().trim());
                     VisitorInterface visitorInterface = VisitorRestClient.getVisitor();
@@ -195,5 +205,32 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private String cifradoPassword(String password){
+        String hexText = "";
+        try{
+            int fileId = getResources().getIdentifier("public_key","raw",getPackageName());
+            InputStream inputStream = getResources().openRawResource(fileId);
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            int leidos;
+            byte data [] = new byte[1024];
+            while((leidos = inputStream.read(data,0,data.length))!=-1){
+                byteArrayOutputStream.write(data,0,leidos);
+            }
+            byteArrayOutputStream.flush();
+            byte[] fileKey = byteArrayOutputStream.toByteArray();
+            for (int i = 0; i < fileKey.length; i++) {
+                String h = Integer.toHexString(fileKey[i] & 0xFF);
+                if (h.length() == 1) {
+                    hexText += "0";
+                }
+                hexText += h;
+            }
+        }catch(IOException e){
+            Toast.makeText(getApplicationContext(),"Error al cifrar password "+e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+        return hexText.toUpperCase();
     }
 }
