@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
@@ -81,9 +84,8 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
         aceptarCondicionesRegistro = findViewById(R.id.checkBoxCondiciones);
 
         bd = openOrCreateDatabase("emex51db", Context.MODE_PRIVATE,null);
-        bd.execSQL("CREATE TABLE IF NOT EXISTS visitor (login VARCHAR,password VARCHAR,musica BOOLEAN,recordar BOOLEAN);");
-        //Hacer aqui una select y si recordar esta a true dejar el usuario. desde la portada pasar de esta activity. se puede usar la bd en otra activity?
-        //Vemos que boton le  ha pulsado para abrir una u otra o ellayout iniciosesion o registro
+        bd.execSQL("CREATE TABLE IF NOT EXISTS t_visitor (login VARCHAR,password VARCHAR,musica INTEGER,recordar INTEGER);");
+
         Intent intent = this.getIntent();
         if (intent != null){
             String extra = intent.getExtras().getString("Entry");
@@ -120,23 +122,29 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                     //Login y password los textField están informados llamar a retrofit para consultar con la bbdd
                     UserInterface userInterface = UserRestClient.getUser();
                     Call<User> call = userInterface.loginUser(textoLoginInicioSesion.getText().toString().trim(),
-                            textoPasswordInicioSesion.getText().toString().trim());
+                            cifradoPassword(textoPasswordInicioSesion.getText().toString().trim()));
                     call.enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
-                            //El servidor devuelve entre un 200 y un 300
-                            //Todo ok. En este  not. Devuelve un error 400 500 o lo que sea
+                            //Devuelve un error 400 500 o lo que sea
                             if(!response.isSuccessful()){
                                 textoLoginInicioSesion.setText("");
                                 textoPasswordInicioSesion.setText("");
                                 Toast.makeText(getApplicationContext(),"Usuario o contraseña incorrecta",Toast.LENGTH_LONG).show();
-                            }else{
+                            }else{//El servidor devuelve entre un 200 y un 300
                                 //Si no hace return sigue por aqui el servidor ha devuelto un 200 Ok.
                                 User userResponse = response.body();
                                 if(userResponse.getPrivilege() == UserPrivilege.VISITOR){
                                     //Me ha devuelto un usuario, he comparado las contraseñas y ademas es visitor.
                                     //Guardar en la sqlite el login y password y si tiene el switch recuerdame poner a true para la siguiente vez.
+                                    boolean switchRecuerdoActivo = false;
+                                    if(recuerdame.isChecked())
+                                        switchRecuerdoActivo = true;
+                                    guardarDatosSQLite(userResponse.getLogin(),textoPasswordInicioSesion.getText().toString().trim()
+                                                ,switchRecuerdoActivo);
+                                    //Ya estan los datos guardados en la sqlite ahora intent para entrar en la aplicacion
                                     Intent intent = new Intent(ActivityInicioSesionRegistro.this,ActivityPrincipal.class);
+                                    intent.putExtra("user_logged_in",userResponse);
                                     startActivity(intent);
                                 }else
                                     Toast.makeText(getApplicationContext(),"App solo para visitantes",Toast.LENGTH_LONG).show();
@@ -167,9 +175,9 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                     visitor.setDni(textoDNIRegistro.getText().toString().trim());
                     visitor.setEmail(textoEmailRegistro.getText().toString().trim());
                     visitor.setFullName(textoNombreRegistro.getText().toString().trim());
-                    //visitor.setPassword(cifradoPassword(textoPasswordRegistro.getText().toString().trim()));
-                    visitor.setPassword(textoPasswordRegistro.getText().toString().trim());
+                    visitor.setPassword(cifradoPassword(textoPasswordRegistro.getText().toString().trim()));
                     visitor.setLogin(textoLoginRegistro.getText().toString().trim());
+
                     VisitorInterface visitorInterface = VisitorRestClient.getVisitor();
                     Call<Void> call = visitorInterface.create(visitor);
                     call.enqueue(new Callback<Void>() {
@@ -207,12 +215,28 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
         });
     }
 
-    private String cifradoPassword(String password){
-        String hexText = "";
-        try{
+    private void guardarDatosSQLite(String login, String pass, boolean switchRecuerdoActivo) {
+        Cursor cursor = bd.rawQuery("SELECT * FROM t_visitor WHERE login = '"+login+"'",null);
+        if(cursor.getCount()==0){
+            //si es true el switch meto 1 ssino 0 porque lo meto como integer
+            if(switchRecuerdoActivo)
+                bd.execSQL("Insert into t_visitor (login,password,recordar) VALUES (login,pass,1)");
+            else
+                bd.execSQL("Insert into t_visitor (login,password,recordar) VALUES (login,pass,0)");
+        }else{
+            if(switchRecuerdoActivo)
+                bd.execSQL("UPDATE t_visitor SET recordar = 1 WHERE login = 'login'");
+            else
+                bd.execSQL("UPDATE t_visitor SET recordar = 0 WHERE login = 'login'");
+        }
+    }
+    private String cifradoPassword(String mensaje) {
+        byte[] encodedMessage = null;
+        String encodedMessageHex = null;
+        try {
             int fileId = getResources().getIdentifier("public_key","raw",getPackageName());
-            InputStream inputStream = getResources().openRawResource(fileId);
-
+            InputStream inputStream = this.getResources().openRawResource(fileId);
+            //en inputstream estael fichero ahora lo lee
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             int leidos;
             byte data [] = new byte[1024];
@@ -221,15 +245,36 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
             }
             byteArrayOutputStream.flush();
             byte[] fileKey = byteArrayOutputStream.toByteArray();
-            for (int i = 0; i < fileKey.length; i++) {
-                String h = Integer.toHexString(fileKey[i] & 0xFF);
-                if (h.length() == 1) {
-                    hexText += "0";
-                }
-                hexText += h;
-            }
-        }catch(IOException e){
+            //En filekey esta el contenido del fichero
+            //cifra
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(fileKey);
+            PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
+
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            encodedMessage = cipher.doFinal(mensaje.getBytes());
+
+            encodedMessageHex = byteToHex(encodedMessage);
+        } catch (Exception e) {
             Toast.makeText(getApplicationContext(),"Error al cifrar password "+e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+        return encodedMessageHex;
+    }
+    /**
+     * This method converts the byte array text received to hexadecimal String.
+     *
+     * @param byteText byte array text to convert.
+     * @return converted text in hexadecimal.
+     */
+    private static String byteToHex(byte[] byteText) {
+        String hexText = "";
+        for (int i = 0; i < byteText.length; i++) {
+            String h = Integer.toHexString(byteText[i] & 0xFF);
+            if (h.length() == 1) {
+                hexText += "0";
+            }
+            hexText += h;
         }
         return hexText.toUpperCase();
     }

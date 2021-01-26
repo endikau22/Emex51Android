@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">EMEX51</string>
+    <string name="toolbar_name">EMEX51 EXPERIENCE</string>
+    <string name="header_name">Hola</string>
     <string name="texto_boton_iniciar_sesion">Inicia sesión</string>
     <string name="texto_boton_registro">Regístrate ahora</string>
     <string name="texto_bienvenida">Vive una experiencia irrepetible</string>
@@ -27,4 +29,11 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="botonCambioContrasenias">MODIFICAR CONTRASEÑA</string>
+
+    <string name="editcontraseniaActual">Contraseña actual</string>
+    <string name="editNuevaContrasenia">Contraseña nueva</string>
+    <string name="editRepetirContrasenia">Repetir contraseña nueva</string>
+    <string name="buttonGuardarContrasenias">Guardar</string>
 </resources>
