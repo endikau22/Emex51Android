@@ -31,9 +31,13 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="botonCambioContrasenias">MODIFICAR CONTRASEÑA</string>
+    <string name="botonEliminarCuenta">ELIMINAR CUENTA</string>
+
 
     <string name="editcontraseniaActual">Contraseña actual</string>
     <string name="editNuevaContrasenia">Contraseña nueva</string>
     <string name="editRepetirContrasenia">Repetir contraseña nueva</string>
     <string name="buttonGuardarContrasenias">Guardar</string>
+
+    <string name="texto_boton_solicitar_visita">Solicitar Visita</string>
 </resources>
