@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
     private Button botonIrCuenta = null;
     private Button botonIrSector = null;
     private List<Sector> arrayListSectores = null;
+    private List<String> arrayStringSectores = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +53,10 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
                     Sectores sectores = (Sectores) response.body();
                     arrayListSectores = sectores.getSectors();
                     for(Sector s: arrayListSectores){
+                        //Pasar a un arraylist de string porque no se sino se puede con  el objeto sector entero
+                        arrayStringSectores.add(s.getName());
                         //Añadir al listview
-
+                        anadirSectoresListView(arrayStringSectores);
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),"No hay sectores que mostrar.",Toast.LENGTH_LONG).show();
@@ -74,6 +78,12 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
                 startActivity(intent);
             }
         });
+    }
+
+    private void anadirSectoresListView(List<String> arrayListSectores) {
+        ArrayAdapter<String> adaptador;
+        adaptador=new ArrayAdapter<>(this,R.layout.lista_fila,arrayListSectores);
+        listViewSectores.setAdapter(adaptador);
     }
 
     @Override
