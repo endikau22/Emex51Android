@@ -25,9 +25,9 @@ public interface UserInterface {
     @GET("login/{login}")
     public Call<User> findUsersByLogin(@Path("login") String login);
     @PUT("forgotPassword")
-    public void editForgotPassword(@Body User user);
+    public Call<Void> editForgotPassword(@Body User user);
     @PUT("changePassword/{oldPass}/{newPass}")
-    public void editChangePassword(@Path("oldPass") String oldPass,@Path("newPass") String newPass,@Body User user);
+    public Call<Void> editChangePassword(@Path("oldPass") String oldPass, @Path("newPass") String newPass, @Body User user);
     @GET("loginUser/{login}/{password}")
     public Call<User> loginUser(@Path("login") String login, @Path("password") String password);
 }

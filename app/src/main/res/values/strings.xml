@@ -36,4 +36,7 @@
     <string name="editNuevaContrasenia">Contraseña nueva</string>
     <string name="editRepetirContrasenia">Repetir contraseña nueva</string>
     <string name="buttonGuardarContrasenias">Guardar</string>
+
+    <string name="texto_boton_anadir_sector">Ver Sector</string>
+    <string name="texto_boton_ir_personal">Mi Cuenta</string>
 </resources>

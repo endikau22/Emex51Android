@@ -16,7 +16,6 @@
         <activity android:name=".ActivitySectores"></activity>
         <activity android:name=".ActivityEditPassword" />
         <activity android:name=".ActivityMiCuenta" />
-        <activity android:name=".ActivityPrincipal" />
         <activity android:name=".ActivityPortada" />
         <activity android:name=".RecuperarActivity" />
         <activity android:name=".ActivityInicioSesionRegistro" />

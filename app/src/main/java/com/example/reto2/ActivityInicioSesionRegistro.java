@@ -143,7 +143,8 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                                     guardarDatosSQLite(userResponse.getLogin(),textoPasswordInicioSesion.getText().toString().trim()
                                                 ,switchRecuerdoActivo);
                                     //Ya estan los datos guardados en la sqlite ahora intent para entrar en la aplicacion
-                                    Intent intent = new Intent(ActivityInicioSesionRegistro.this,ActivityPrincipal.class);
+                                    Intent intent = new Intent(ActivityInicioSesionRegistro.this,ActivitySectores.class);
+                                    //si esto no funciona pasar el objeto entero, pasar el id solo por ejemplo
                                     intent.putExtra("user_logged_in",userResponse);
                                     startActivity(intent);
                                 }else
