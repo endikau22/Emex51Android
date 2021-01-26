@@ -80,9 +80,9 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
         });
     }
 
-    private void anadirSectoresListView(List<String> arrayListSectores) {
+    private void anadirSectoresListView(List<String> sectores) {
         ArrayAdapter<String> adaptador;
-        adaptador=new ArrayAdapter<>(this,R.layout.lista_fila,arrayListSectores);
+        adaptador=new ArrayAdapter<>(this,R.layout.lista_fila,sectores);
         listViewSectores.setAdapter(adaptador);
     }
 
