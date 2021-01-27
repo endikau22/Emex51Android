@@ -26,7 +26,7 @@ public class Sector implements Serializable {
     /**
      * Id field of the Sector Entity. It is also the id value of the sector.
      */
-    @Element(name = "id",required = false)
+    @Element(name = "idSector")
     private Integer id;
     /**
      * Name field of the Sector Entity.

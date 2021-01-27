@@ -64,7 +64,7 @@ public class Visitor extends User implements Serializable {
      */
     public Visitor() {
         super.setStatus(UserStatus.ENABLED);
-        super.setPrivilege(UserPrivilege.VISITOR);
+        super.setPrivilege(UserPrivilege.USER);
         this.visitReply = false;
         this.visited = false;
     }

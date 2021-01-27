@@ -13,13 +13,15 @@ public interface VisitorInterface {
     @POST(".")
     public Call<Void> create(@Body Visitor visitor);
     @PUT
-    public void edit(@Body Visitor visitor);
+    public Call<Visitor> edit(@Body Visitor visitor);
     @DELETE("{id}")
-    public void remove(@Path("id") Integer id);
+    public Call<Void> remove(@Path("id") Integer id);
     @GET("{id}")
     public Call <Visitor> find(@Path("id") Integer id);
     @GET("all")
     public Call <Visitor> findAllVisitors();
     @GET("name/{name}")
     public Call <Visitor> findVisitorsByName(@Path("name") String name);
+    @GET("loginVisitor/{login}/{password}")
+    public Call <Visitor> loginVisitor(@Path("login") String login, @Path("password") String password);
 }

@@ -31,6 +31,7 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="botonCambioContrasenias">MODIFICAR CONTRASEÑA</string>
+    <string name="botonEliminarCuenta">ELIMINAR CUENTA</string>
 
     <string name="editcontraseniaActual">Contraseña actual</string>
     <string name="editNuevaContrasenia">Contraseña nueva</string>

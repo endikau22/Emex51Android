@@ -8,7 +8,6 @@ package model;
  * @author Xabier Carnero, Endika Ubierna, Markel Lopez de Uralde.
  */
 public enum UserPrivilege{
-    BOSS,
-    EMPLOYEE,
-    VISITOR
+    USER,
+    ADMIN
 }

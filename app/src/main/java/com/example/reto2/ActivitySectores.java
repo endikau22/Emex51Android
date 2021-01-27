@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,6 +31,7 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
     private Button botonIrSector = null;
     private List<Sector> arrayListSectores = null;
     private List<String> arrayStringSectores = null;
+    private Visitor visitor = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +40,15 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
         listViewSectores = findViewById(R.id.listaSectores);
         botonIrSector = findViewById(R.id.buttonSectores);
         botonIrCuenta = findViewById(R.id.buttonIrCuentaUsuario);
+        arrayListSectores = new ArrayList<>();
+        arrayStringSectores = new ArrayList<>();
 
-        //Recojo el intent que viene de la activity iniciar sesion. Aqui viene un visitor si no funciona pasar el id o nombre
+        //Recojo el intent que viene de la activity iniciar sesion. Aqui viene  el id del visitor
         Intent i = getIntent();
-        Visitor visitor = (Visitor)i.getSerializableExtra("user_logged_in");
+        Integer idVisitor = i.getIntExtra("user_logged_in",0);
+        //Esto lo hago para pasar en el item selected no alcanza la variable
+        visitor = new Visitor();
+        visitor.setId(idVisitor);
 
         //Cargar los sectores desde la base de datos
         SectorInterface sectorInterface = SectorRestClient.getSector();
@@ -70,11 +77,12 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
         });
         //Hacemos la lista clickable
         listViewSectores.setOnItemClickListener(this);
+
         botonIrCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivitySectores.this,ActivityMiCuenta.class);
-                intent.putExtra("user_logged_in",visitor);
+                intent.putExtra("visitor",idVisitor);
                 startActivity(intent);
             }
         });
@@ -92,6 +100,7 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
     //Guardar el sector, cojo el del arraylist que coincide con la posicion del de la listview
         Sector sector = arrayListSectores.get(position);
         intent.putExtra("sector_elegido",sector.getIdSector());
+        intent.putExtra("visitor",visitor.getId());
         startActivity(intent);
     }
 }

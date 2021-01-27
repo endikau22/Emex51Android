@@ -84,7 +84,17 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
         aceptarCondicionesRegistro = findViewById(R.id.checkBoxCondiciones);
 
         bd = openOrCreateDatabase("emex51db", Context.MODE_PRIVATE,null);
-        bd.execSQL("CREATE TABLE IF NOT EXISTS t_visitor (login VARCHAR,password VARCHAR,musica INTEGER,recordar INTEGER);");
+        bd.execSQL("CREATE TABLE IF NOT EXISTS tableVisitor (login VARCHAR,password VARCHAR,musica INTEGER,recordar INTEGER);");
+        //Rellenar el recuerdame. Si es 1 es true. Rellenar los textfields
+        Cursor cursor = bd.rawQuery("SELECT * FROM tableVisitor",null);
+        if(cursor.getCount() != 0){
+            while (cursor.moveToNext()){
+                if(cursor.getInt(3)==1){
+                    textoLoginInicioSesion.setText(cursor.getString(0));
+                    textoPasswordInicioSesion.setText(cursor.getString(1));
+                }
+            }
+        }
 
         Intent intent = this.getIntent();
         if (intent != null){
@@ -120,39 +130,33 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"El campo password debe estar informado.",Toast.LENGTH_SHORT).show();
                 else{
                     //Login y password los textField están informados llamar a retrofit para consultar con la bbdd
-                    UserInterface userInterface = UserRestClient.getUser();
-                    Call<User> call = userInterface.loginUser(textoLoginInicioSesion.getText().toString().trim(),
+                    VisitorInterface visitorInterface = VisitorRestClient.getVisitor();
+                    Call<Visitor> call = visitorInterface.loginVisitor(textoLoginInicioSesion.getText().toString().trim(),
                             cifradoPassword(textoPasswordInicioSesion.getText().toString().trim()));
-                    call.enqueue(new Callback<User>() {
+                    call.enqueue(new Callback<Visitor>() {
                         @Override
-                        public void onResponse(Call<User> call, Response<User> response) {
+                        public void onResponse(Call<Visitor> call, Response<Visitor> response) {
                             //Devuelve un error 400 500 o lo que sea
-                            if(!response.isSuccessful()){
+                            if (!response.isSuccessful()) {
                                 textoLoginInicioSesion.setText("");
                                 textoPasswordInicioSesion.setText("");
-                                Toast.makeText(getApplicationContext(),"Usuario o contraseña incorrecta",Toast.LENGTH_LONG).show();
-                            }else{//El servidor devuelve entre un 200 y un 300
+                                Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecta", Toast.LENGTH_LONG).show();
+                            } else {//El servidor devuelve entre un 200 y un 300
                                 //Si no hace return sigue por aqui el servidor ha devuelto un 200 Ok.
-                                User userResponse = response.body();
-                                if(userResponse.getPrivilege() == UserPrivilege.VISITOR){
-                                    //Me ha devuelto un usuario, he comparado las contraseñas y ademas es visitor.
-                                    //Guardar en la sqlite el login y password y si tiene el switch recuerdame poner a true para la siguiente vez.
-                                    boolean switchRecuerdoActivo = false;
-                                    if(recuerdame.isChecked())
-                                        switchRecuerdoActivo = true;
-                                    guardarDatosSQLite(userResponse.getLogin(),textoPasswordInicioSesion.getText().toString().trim()
-                                                ,switchRecuerdoActivo);
-                                    //Ya estan los datos guardados en la sqlite ahora intent para entrar en la aplicacion
-                                    Intent intent = new Intent(ActivityInicioSesionRegistro.this,ActivitySectores.class);
-                                    //si esto no funciona pasar el objeto entero, pasar el id solo por ejemplo
-                                    intent.putExtra("user_logged_in",userResponse);
-                                    startActivity(intent);
-                                }else
-                                    Toast.makeText(getApplicationContext(),"App solo para visitantes",Toast.LENGTH_LONG).show();
+                                Visitor visitorResponse = response.body();
+                                //Guardar en la sqlite el login y password y si tiene el switch recuerdame poner a true para la siguiente vez.
+                                if (recuerdame.isChecked())
+                                    guardarDatosSQLite(visitorResponse.getLogin(), textoPasswordInicioSesion.getText().toString().trim()
+                                            , true);
+                                //Ya estan los datos guardados en la sqlite ahora intent para entrar en la aplicacion
+                                Intent intent = new Intent(ActivityInicioSesionRegistro.this, ActivitySectores.class);
+                                //si esto no funciona pasar el objeto entero, pasar el id solo por ejemplo
+                                intent.putExtra("user_logged_in", visitorResponse.getId());
+                                startActivity(intent);
                             }
                         }
                         @Override
-                        public void onFailure(Call<User> call, Throwable t) {
+                        public void onFailure(Call<Visitor> call, Throwable t) {
                             textoLoginInicioSesion.setText("");
                             textoPasswordInicioSesion.setText("");
                             Toast.makeText(getApplicationContext(),"Se ha producido un error"+t.getMessage(),Toast.LENGTH_SHORT).show();
@@ -192,14 +196,8 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"Registro incorrecto",Toast.LENGTH_SHORT).show();
                             }
                         }
-
                         @Override
                         public void onFailure(Call<Void> call, Throwable t) {
-                            textoLoginRegistro.setText("");
-                            textoPasswordRegistro.setText("");
-                            textoDNIRegistro.setText("");
-                            textoEmailRegistro.setText("");
-                            textoNombreRegistro.setText("");
                             aceptarCondicionesRegistro.setChecked(false);
                             Toast.makeText(getApplicationContext(),"Registro denegado. Se ha producido un error"+t.getMessage(),Toast.LENGTH_LONG).show();
                         }
@@ -221,14 +219,14 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
         if(cursor.getCount()==0){
             //si es true el switch meto 1 ssino 0 porque lo meto como integer
             if(switchRecuerdoActivo)
-                bd.execSQL("Insert into t_visitor (login,password,recordar) VALUES (login,pass,1)");
+                bd.execSQL("Insert into tableVisitor (login,password,recordar) VALUES (login,pass,1)");
             else
-                bd.execSQL("Insert into t_visitor (login,password,recordar) VALUES (login,pass,0)");
+                bd.execSQL("Insert into tableVisitor (login,password,recordar) VALUES (login,pass,0)");
         }else{
             if(switchRecuerdoActivo)
-                bd.execSQL("UPDATE t_visitor SET recordar = 1 WHERE login = 'login'");
+                bd.execSQL("UPDATE tableVisitor SET recordar = 1 WHERE login = 'login'");
             else
-                bd.execSQL("UPDATE t_visitor SET recordar = 0 WHERE login = 'login'");
+                bd.execSQL("UPDATE tableVisitor SET recordar = 0 WHERE login = 'login'");
         }
     }
     private String cifradoPassword(String mensaje) {
