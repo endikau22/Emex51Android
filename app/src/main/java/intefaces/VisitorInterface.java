@@ -15,7 +15,7 @@ public interface VisitorInterface {
     @POST(".")
     public Call<Void> create(@Body Visitor visitor);
     @PUT(".")
-    public Call<Visitor> edit(@Body Visitor visitor);
+    public Call<Void> edit(@Body Visitor visitor);
     @DELETE("{id}")
     public Call<Void> remove(@Path("id") Integer id);
     @GET("{id}")

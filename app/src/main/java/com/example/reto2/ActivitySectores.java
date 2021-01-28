@@ -31,7 +31,6 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
 
     private ListView listViewSectores = null;
     private Button botonIrCuenta = null;
-    private Button botonIrSector = null;
     private List<Sector> arrayListSectores = null;
     private List<String> arrayStringSectores = null;
     private Visitor visitor = null;
@@ -46,7 +45,6 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
         setContentView(R.layout.activity_sectores);
 
         listViewSectores = findViewById(R.id.listaSectores);
-        botonIrSector = findViewById(R.id.buttonSectores);
         layoutBar = findViewById(R.id.layoutProgress);
         layoutSector = findViewById(R.id.layoutSectores);
         botonIrCuenta = findViewById(R.id.buttonIrCuentaUsuario);

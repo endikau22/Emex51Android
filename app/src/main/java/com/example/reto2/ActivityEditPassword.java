@@ -34,7 +34,6 @@ public class ActivityEditPassword extends AppCompatActivity {
     private EditText newPAss = null;
     private EditText repeatNewPass = null;
     private Button guardar = null;
-    private User user = null;
     private Visitor visitante = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,6 @@ public class ActivityEditPassword extends AppCompatActivity {
         repeatNewPass = findViewById(R.id.editRepeatNewPassword);
         guardar = findViewById(R.id.buttonGuardarCambioContrsenia);
 
-        user = new User();
         //Recoger los datos del intent
         Intent i = getIntent();
         int id = i.getIntExtra("visitorId",0);
@@ -62,8 +60,8 @@ public class ActivityEditPassword extends AppCompatActivity {
                     //Los tres campos rellenos y las contraseñas coinciden
                     //Llamar a editpassword del servidor
                     UserInterface userInterface = UserRestClient.getUser();
-                    user = buscarUser(id);
-                    Call<Void> userCall = userInterface.editChangePassword(user,cifradoPassword(oldPass.getText().toString().trim()),
+                    visitante = (Visitor) buscarUser(id);
+                    Call<Void> userCall = userInterface.editChangePassword(visitante,cifradoPassword(oldPass.getText().toString().trim()),
                             cifradoPassword(newPAss.getText().toString().trim()));
                     userCall.enqueue(new Callback<Void>() {
                         @Override

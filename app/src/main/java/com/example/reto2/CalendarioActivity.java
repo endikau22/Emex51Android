@@ -103,7 +103,7 @@ public class CalendarioActivity extends AppCompatActivity {
                 calendar.set(year, month, dayOfMonth);
                 date = sdf.format(calendar.getTime());
                 try {
-                    fechaVisita = new SimpleDateFormat("yyyy/MM/dd").parse(date);
+                    fechaVisita = sdf.parse(date);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -112,10 +112,10 @@ public class CalendarioActivity extends AppCompatActivity {
     }
     private void actualizarVisitante(Visitor visitor) {
         VisitorInterface visitorInterface = VisitorRestClient.getVisitor();
-        Call<Visitor> call = visitorInterface.edit(visitor);
-        call.enqueue(new Callback<Visitor>() {
+        Call<Void> call = visitorInterface.edit(visitor);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Visitor> call, Response<Visitor> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"Visita guardada",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(CalendarioActivity.this,ActivitySectores.class);
@@ -126,7 +126,7 @@ public class CalendarioActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Visitor> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),"Error."+t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });

@@ -16,7 +16,7 @@ import retrofit2.http.Path;
 public interface UserInterface {
     @POST
     public void create(@Body User user);
-    @PUT
+    @PUT(".")
     public void edit(@Body User user);
     @DELETE("{id}")
     public void remove(@Path("id") Integer id);

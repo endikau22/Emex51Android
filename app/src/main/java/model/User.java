@@ -21,7 +21,7 @@ public class User implements Serializable {
     /**
      * Id field of the Criature Entity. It is also the id value of the criature.
      */
-    @Element(name ="id")
+    @Element(name ="id", required=false)
     private Integer id;
     /**
      * The login value for the user.
