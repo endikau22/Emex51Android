@@ -10,7 +10,9 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-
+/**
+ * Interface encapsulating methods for <code>User</code> Management for Emex51 project.
+ */
 public interface UserInterface {
     @POST
     public void create(@Body User user);
@@ -27,7 +29,7 @@ public interface UserInterface {
     @PUT("forgotPassword")
     public Call<Void> editForgotPassword(@Body User user);
     @PUT("changePassword/{oldPass}/{newPass}")
-    public Call<Void> editChangePassword(@Path("oldPass") String oldPass, @Path("newPass") String newPass, @Body User user);
+    public Call<Void> editChangePassword(@Body User user,@Path("oldPass") String oldPass, @Path("newPass") String newPass);
     @GET("loginUser/{login}/{password}")
     public Call<User> loginUser(@Path("login") String login, @Path("password") String password);
 }

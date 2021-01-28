@@ -92,8 +92,14 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                 if(cursor.getInt(3)==1){
                     textoLoginInicioSesion.setText(cursor.getString(0));
                     textoPasswordInicioSesion.setText(cursor.getString(1));
+                }else{
+                    textoLoginInicioSesion.setText("");
+                    textoPasswordInicioSesion.setText("");
                 }
             }
+        }else{
+            textoLoginInicioSesion.setText("");
+            textoPasswordInicioSesion.setText("");
         }
 
         Intent intent = this.getIntent();
@@ -219,14 +225,14 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
         if(cursor.getCount()==0){
             //si es true el switch meto 1 ssino 0 porque lo meto como integer
             if(switchRecuerdoActivo)
-                bd.execSQL("Insert into tableVisitor (login,password,recordar) VALUES (login,pass,1)");
+                bd.execSQL("Insert into tableVisitor (login,password,recordar) VALUES ('"+login+"','"+pass+"','"+1+"')");
             else
-                bd.execSQL("Insert into tableVisitor (login,password,recordar) VALUES (login,pass,0)");
+                bd.execSQL("Insert into tableVisitor (login,password,recordar) VALUES ('"+login+"','"+pass+"','"+0+"')");
         }else{
             if(switchRecuerdoActivo)
-                bd.execSQL("UPDATE tableVisitor SET recordar = 1 WHERE login = 'login'");
+                bd.execSQL("UPDATE tableVisitor SET recordar = '"+ 1+"' WHERE login = '"+login+"'");
             else
-                bd.execSQL("UPDATE tableVisitor SET recordar = 0 WHERE login = 'login'");
+                bd.execSQL("UPDATE tableVisitor SET recordar = '"+ 0+"' WHERE login = '"+login+"'");
         }
     }
     private String cifradoPassword(String mensaje) {

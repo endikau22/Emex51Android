@@ -8,11 +8,13 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-
+/**
+ * Interface encapsulating methods for <code>Visitor</code> Management for Emex51 project.
+ */
 public interface VisitorInterface {
     @POST(".")
     public Call<Void> create(@Body Visitor visitor);
-    @PUT
+    @PUT(".")
     public Call<Visitor> edit(@Body Visitor visitor);
     @DELETE("{id}")
     public Call<Void> remove(@Path("id") Integer id);

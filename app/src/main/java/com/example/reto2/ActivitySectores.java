@@ -1,15 +1,18 @@
 package com.example.reto2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,6 +35,11 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
     private List<Sector> arrayListSectores = null;
     private List<String> arrayStringSectores = null;
     private Visitor visitor = null;
+    private ConstraintLayout layoutBar = null;
+    private ConstraintLayout layoutSector = null;
+    private ProgressBar progressBar = null;
+    private CountDownTimer cdt = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +47,23 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
 
         listViewSectores = findViewById(R.id.listaSectores);
         botonIrSector = findViewById(R.id.buttonSectores);
+        layoutBar = findViewById(R.id.layoutProgress);
+        layoutSector = findViewById(R.id.layoutSectores);
         botonIrCuenta = findViewById(R.id.buttonIrCuentaUsuario);
         arrayListSectores = new ArrayList<>();
         arrayStringSectores = new ArrayList<>();
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setProgress(0);
+
+        cdt = new CountDownTimer(4000, 30) {
+            public void onTick(long millisUntilFinished) {
+                progressBar.setProgress(progressBar.getProgress()+1);
+            }
+            public void onFinish() {
+                layoutBar.setVisibility(View.GONE);
+                layoutSector.setVisibility(View.VISIBLE);
+            }
+        }.start();
 
         //Recojo el intent que viene de la activity iniciar sesion. Aqui viene  el id del visitor
         Intent i = getIntent();
@@ -82,7 +104,7 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivitySectores.this,ActivityMiCuenta.class);
-                intent.putExtra("visitor",idVisitor);
+                intent.putExtra("visitorId",idVisitor);
                 startActivity(intent);
             }
         });
@@ -96,10 +118,10 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(ActivitySectores.this,ActivitySolicitarVisita.class);
+        Intent intent = new Intent(ActivitySectores.this,CalendarioActivity.class);
     //Guardar el sector, cojo el del arraylist que coincide con la posicion del de la listview
         Sector sector = arrayListSectores.get(position);
-        intent.putExtra("sector_elegido",sector.getIdSector());
+        intent.putExtra("sectorelegido",sector.getIdSector());
         intent.putExtra("visitor",visitor.getId());
         startActivity(intent);
     }

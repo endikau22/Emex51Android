@@ -43,10 +43,13 @@ public class ActivityMiCuenta extends AppCompatActivity {
         bd = openOrCreateDatabase("emex51db", Context.MODE_PRIVATE,null);
         eliminarCuenta = findViewById(R.id.buttonEliminarCuenta);
 
+        bd = openOrCreateDatabase("emex51db", Context.MODE_PRIVATE,null);
+        bd.execSQL("CREATE TABLE IF NOT EXISTS tableVisitor (login VARCHAR,password VARCHAR,musica INTEGER,recordar INTEGER);");
+
 
         //Recojo el intent que viene de la activity sesion. Aqui viene  el id del visitor
         Intent i = getIntent();
-        Integer idVisitor = i.getIntExtra("user_logged_in",0);
+        Integer idVisitor = i.getIntExtra("visitorId",0);
 
         //Vamos a buscar el visitor por id al servidor
         VisitorInterface visitorInterface = VisitorRestClient.getVisitor();
@@ -103,20 +106,19 @@ public class ActivityMiCuenta extends AppCompatActivity {
         musica.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (musica.getDrawable() == getDrawable(R.drawable.encendido)){
-                    musica.setImageDrawable(getDrawable(R.drawable.apagado));
-                    AudioPlay.stopAudio();
-                    bd.execSQL("UPDATE t_visitor SET musica = 0 WHERE login = 'login'");
+                if (encenderAudio){
+                    musica.setImageDrawable(getDrawable(R.drawable.encendido));
+                    encenderAudio = false;
+                    AudioPlay.playAudio(ActivityMiCuenta.this);
+                    bd.execSQL("UPDATE tableVisitor SET musica ='"+ 0+"' WHERE login = '"+login+"'");
 
                 }else{
                     encenderAudio = true;
-                    musica.setImageDrawable(getDrawable(R.drawable.encendido));
+                    AudioPlay.stopAudio();
+                    musica.setImageDrawable(getDrawable(R.drawable.apagado));
                 }
 
             }
         });
-        if(encenderAudio)
-            AudioPlay.playAudio(this);
-
     }
 }

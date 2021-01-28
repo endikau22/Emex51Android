@@ -10,21 +10,27 @@
         android:id="@+id/textViewNombreMicuenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="212dp"
+        android:textAlignment="center"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.295" />
 
     <TextView
         android:id="@+id/textViewEmailMiCuenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="292dp"
+        android:textAlignment="center"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.456" />
 
     <Button
         android:id="@+id/buttonModificarPassword"
@@ -40,27 +46,17 @@
         app:layout_constraintVertical_bias="0.649" />
 
     <ImageButton
-        android:id="@+id/imageButtonModificar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="316dp"
-        android:layout_marginTop="72dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/lapiz"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/lapiz" />
-
-    <ImageButton
         android:id="@+id/imageButtonMusica"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="48dp"
         android:scaleType="fitXY"
+        android:src="@drawable/encendido"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@drawable/encendido" />
+         />
 
     <Button
         android:id="@+id/buttonEliminarCuenta"
