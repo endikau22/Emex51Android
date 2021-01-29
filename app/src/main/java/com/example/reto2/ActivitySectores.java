@@ -14,6 +14,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+
+import model.Sectores;
+import retrofit2.Call;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +44,11 @@ public class ActivitySectores extends AppCompatActivity implements ListView.OnIt
     private ConstraintLayout layoutSector = null;
     private ProgressBar progressBar = null;
     private CountDownTimer cdt = null;
+
+    private ListView listViewSectores = null;
+    private Button buttonVolver = null;
+    private Button buttonSeleccionar = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

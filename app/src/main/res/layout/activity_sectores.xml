@@ -8,7 +8,6 @@
     android:visibility="visible"
     tools:context=".ActivitySectores">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutProgress"
         android:layout_width="match_parent"
