@@ -13,12 +13,11 @@
         android:roundIcon="@mipmap/area51"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ActivitySolicitarVisita"></activity>
+        <activity android:name=".CalendarioActivity"></activity>
         <activity android:name=".ActivityListaSectores" />
         <activity android:name=".ActivitySectores" />
         <activity android:name=".ActivityEditPassword" />
         <activity android:name=".ActivityMiCuenta" />
-        <activity android:name=".ActivityPrincipal" />
         <activity android:name=".ActivityPortada" />
         <activity android:name=".RecuperarActivity" />
         <activity android:name=".ActivityInicioSesionRegistro" />
