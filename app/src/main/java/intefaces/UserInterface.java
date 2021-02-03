@@ -21,15 +21,15 @@ public interface UserInterface {
     @DELETE("{id}")
     public void remove(@Path("id") Integer id);
     @GET("{id}")
-    public Call<User> find(@Path("id") String id);
+    public Call<User> find(@Path("id") Integer id);
     @GET("all")
     public Call<List<User>> findAll();
     @GET("login/{login}")
     public Call<User> findUsersByLogin(@Path("login") String login);
     @PUT("forgotPassword")
     public Call<Void> editForgotPassword(@Body User user);
-    @PUT("changePassword/{oldPass}/{newPass}")
-    public Call<Void> editChangePassword(@Body User user,@Path("oldPass") String oldPass, @Path("newPass") String newPass);
+    @PUT("newPassword/{email}/{tempPass}/{newPass}")
+    public Call<Void> editChangePassword(@Path("email") String email,@Path("oldPass") String oldPass, @Path("newPass") String newPass);
     @GET("loginUser/{login}/{password}")
     public Call<User> loginUser(@Path("login") String login, @Path("password") String password);
 }

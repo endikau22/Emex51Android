@@ -10,7 +10,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
  * REST client generated for REST resource:UserFacadeREST
  */
 public class UserRestClient {
-    private static String BASE_URL = "http:// 192.168.1.36:8080/EMEX51CRUDServer/webresources/user/";
+    private static String BASE_URL = "http:// 192.168.20.170:8080/EMEX51Server/webresources/user/";
     
     public static UserInterface getUser (){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();

@@ -33,6 +33,7 @@ import intefaces.VisitorInterface;
 import model.User;
 import model.UserPrivilege;
 import model.Visitor;
+import musica.AudioPlay;
 import retrofit.UserRestClient;
 import retrofit.VisitorRestClient;
 import retrofit2.Call;
@@ -95,6 +96,10 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
                 }else{
                     textoLoginInicioSesion.setText("");
                     textoPasswordInicioSesion.setText("");
+                }
+                //Quitar la musica
+                if(cursor.getInt(2)==0){
+                    AudioPlay.stopAudio();
                 }
             }
         }else{
@@ -221,7 +226,7 @@ public class ActivityInicioSesionRegistro extends AppCompatActivity {
     }
 
     private void guardarDatosSQLite(String login, String pass, boolean switchRecuerdoActivo) {
-        Cursor cursor = bd.rawQuery("SELECT * FROM t_visitor WHERE login = '"+login+"'",null);
+        Cursor cursor = bd.rawQuery("SELECT * FROM tableVisitor WHERE login = '"+login+"'",null);
         if(cursor.getCount()==0){
             //si es true el switch meto 1 ssino 0 porque lo meto como integer
             if(switchRecuerdoActivo)

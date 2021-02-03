@@ -11,7 +11,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
  * REST client generated for REST resource:SectorFacadeREST
  */
 public class SectorRestClient {
-    private static String BASE_URL = "http://192.168.1.36:8080/EMEX51CRUDServer/webresources/sector/";
+    private static String BASE_URL = "http://192.168.20.170:8080/EMEX51Server/webresources/sector/";
 
     public static SectorInterface getSector (){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();

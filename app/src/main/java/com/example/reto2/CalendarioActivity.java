@@ -1,8 +1,10 @@
 package com.example.reto2;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +14,11 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import intefaces.SectorInterface;
 import intefaces.VisitorInterface;
@@ -30,7 +35,6 @@ public class CalendarioActivity extends AppCompatActivity {
     private TextView sectorVisitar = null;
     private Button botonEnviar = null;
     private CalendarView calendario = null;
-    private String date = null;
     private Date fechaVisita = null;
 
     @Override
@@ -68,7 +72,7 @@ public class CalendarioActivity extends AppCompatActivity {
         botonEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(date == null){
+                if(calendario.getDate()== 0){
                     Toast.makeText(getApplicationContext(),"Debes elegir una fecha.",Toast.LENGTH_LONG).show();
                 }else{
                     VisitorInterface visitorInterface = VisitorRestClient.getVisitor();
@@ -78,6 +82,14 @@ public class CalendarioActivity extends AppCompatActivity {
                         public void onResponse(Call<Visitor> call, Response<Visitor> response) {
                             if(response.isSuccessful()){
                                 Visitor visitor = (Visitor) response.body();
+
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                String selectedDate = sdf.format(new Date(calendario.getDate()));
+                                try {
+                                    fechaVisita = sdf.parse(selectedDate);
+                                } catch (ParseException e) {
+                                    Toast.makeText(getApplicationContext(),"Date error.",Toast.LENGTH_LONG).show();
+                                }
                                 visitor.setVisitaSolicitada(fechaVisita);
                                 actualizarVisitante(visitor);
                             }else{
@@ -90,22 +102,6 @@ public class CalendarioActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"Error del servidor no se puede cargar el visitante."+t.getMessage(),Toast.LENGTH_LONG).show();
                         }
                     });
-                }
-            }
-        });
-        calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
-                final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year, month, dayOfMonth);
-                date = sdf.format(calendar.getTime());
-                try {
-                    fechaVisita = sdf.parse(date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
                 }
             }
         });

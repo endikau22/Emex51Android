@@ -34,7 +34,7 @@ public class ActivityEditPassword extends AppCompatActivity {
     private EditText newPAss = null;
     private EditText repeatNewPass = null;
     private Button guardar = null;
-    private Visitor visitante = null;
+    private User visitante = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +60,9 @@ public class ActivityEditPassword extends AppCompatActivity {
                     //Los tres campos rellenos y las contraseñas coinciden
                     //Llamar a editpassword del servidor
                     UserInterface userInterface = UserRestClient.getUser();
-                    visitante = (Visitor) buscarUser(id);
-                    Call<Void> userCall = userInterface.editChangePassword(visitante,cifradoPassword(oldPass.getText().toString().trim()),
+                    visitante = buscarUser(id);
+                    Call<Void> userCall = userInterface.editChangePassword(visitante.getEmail(),
+                            cifradoPassword(oldPass.getText().toString().trim()),
                             cifradoPassword(newPAss.getText().toString().trim()));
                     userCall.enqueue(new Callback<Void>() {
                         @Override
@@ -86,19 +87,19 @@ public class ActivityEditPassword extends AppCompatActivity {
     }
 
     private User buscarUser(int id) {
-        VisitorInterface visitorInterface = VisitorRestClient.getVisitor();
-        Call<Visitor> visitor = visitorInterface.find(id);
-        visitor.enqueue(new Callback<Visitor>() {
+        UserInterface userInterface = UserRestClient.getUser();
+        Call<User> visitor = userInterface.find(id);
+        visitor.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<Visitor> call, Response<Visitor> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
-                    visitante = (Visitor) response.body();
+                    visitante = (User) response.body();
                 } else
                     Toast.makeText(getApplicationContext(), "No hay visitor", Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<Visitor> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Se ha producido un error" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

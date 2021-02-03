@@ -9,7 +9,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
  * REST client generated for REST resource:VisitorFacadeREST
  */
 public class VisitorRestClient {
-    private static String BASE_URL = "http://192.168.1.36:8080/EMEX51CRUDServer/webresources/visitor/";
+    private static String BASE_URL = "http://192.168.20.170:8080/EMEX51Server/webresources/visitor/";
 
     public static VisitorInterface getVisitor (){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();

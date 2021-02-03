@@ -84,7 +84,7 @@ public class ActivityMiCuenta extends AppCompatActivity {
                             Intent intent = new Intent(ActivityMiCuenta.this,ActivityPortada.class);
                             startActivity(intent);
                         }else{
-                            Toast.makeText(getApplicationContext(),"Registro incorrecto",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"No se ha podido eliminar al visitante.",Toast.LENGTH_SHORT).show();
                         }
                     }
 

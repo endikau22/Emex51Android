@@ -36,12 +36,12 @@ public class Visitor extends User implements Serializable {
     /**
      * The response. True or false.
      */
-    @Element(name="visitReply")
+    @Element(name="visitaRespuesta")
     private Boolean visitReply;
     /**
      * Visited value. True or false.
      */
-    @Element(name="visited")
+    @Element(name="visitado")
     private Boolean visited;
     /**
      * The date of the visitors visitReply.
